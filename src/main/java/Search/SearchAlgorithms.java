@@ -1,5 +1,6 @@
 package Search;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -44,10 +45,20 @@ public class SearchAlgorithms {
 
         System.out.println("Выберите алгоритм поиска");
         System.out.println("1. Линейный поиск");
+        System.out.println("2. Бинарный поиск");
         int choose = scanner.nextInt();
         switch (choose){
             case 1:
                 int index = linearSearch(array, searchNum);
+                if(index != -1) {
+                    System.out.println("Число найдено на позиции: " + index);
+                } else {
+                    System.out.println("Число не найдено");
+                }
+                break;
+            case 2:
+                Arrays.sort(array);
+                index = linearSearch(array, searchNum);
                 if(index != -1) {
                     System.out.println("Число найдено на позиции: " + index);
                 } else {
@@ -63,6 +74,25 @@ public class SearchAlgorithms {
         for(int i = 0; i < array.length; i++){
             if(array[i] == num){
                 return i;
+            }
+        }
+        return -1;
+    }
+
+    public int binarySearch(int[] array, int num){
+        int left = 0;
+        int right = array.length-1;
+        while (left<=right){
+            int mid = left+(right-left)/2;
+
+            if(array[mid] == num){
+                return mid;
+            }
+            if(array[mid]<num){
+                left = mid+1;
+            }
+            else{
+                right = mid-1;
             }
         }
         return -1;
